@@ -1,10 +1,16 @@
 const { Router } = require('express');
 const prisma = require('../prisma');
 const bcrypt = require('bcryptjs');
+const { isAuth } = require('./authMiddleware');
 
 const router = Router();
 
-router.get('/', (req, res) => res.render('index'));
+router.get('/', (req, res) =>
+  res.render('index', {
+    message: req.flash('error'),
+    user: req.user,
+  })
+);
 
 router.get('/signup', (req, res) => {
   res.render('signup');
@@ -25,6 +31,19 @@ router.post('/signup', async (req, res, next) => {
   } catch (err) {
     return next(err);
   }
+});
+
+router.get('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
+});
+
+router.get('/upload', isAuth, (req, res, next) => {
+  res.render('upload');
 });
 
 module.exports = router;
