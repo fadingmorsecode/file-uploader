@@ -46,4 +46,10 @@ router.get('/upload', isAuth, (req, res, next) => {
   res.render('upload');
 });
 
+router.post('/upload', isAuth, async (req, res, next) => {
+  const { filename } = req.body;
+  console.log('upload:', filename);
+  res.redirect('upload');
+});
+
 module.exports = router;
