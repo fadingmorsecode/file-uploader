@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drive</title>
+  </head>
+  <body>
+    <p>Drive</p>
+    <p>User: <%= JSON.stringify(user) %></p>
+
+    <p>Folders:</p>
+    <% uploads.folders.forEach((folder) => { %>
+    <p><%= folder.name %></p>
+    <form action="/delete-folder/<%= folder.id %>" method="post">
+      <button type="submit">Delete</button>
+    </form>
+    <% }) %>
+
+    <p>Files:</p>
+    <% uploads.files.forEach((file) => { %>
+    <p><%= file.name %></p>
+    <% }) %>
+
+    <form action="create-folder" method="post">
+      <label for="folder-name-input">Folder Name</label>
+      <input type="text" id="folder-name-input" name="name" />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

@@ -90,7 +90,7 @@ app.post(
 );
 
 app.use((err, req, res, next) => {
-  console.err(err);
+  console.error(err);
   res.status(err.statusCode || 500).send(err.message);
 });
 

@@ -2,6 +2,11 @@ const { Router } = require('express');
 const prisma = require('../prisma');
 const bcrypt = require('bcryptjs');
 const { isAuth } = require('./authMiddleware');
+const getUserUploads = require('../controllers/driveController');
+const {
+  createFolderPost,
+  deleteFolder,
+} = require('../controllers/folderController');
 
 const router = Router();
 
@@ -51,5 +56,28 @@ router.post('/upload', isAuth, async (req, res, next) => {
   console.log('upload:', filename);
   res.redirect('upload');
 });
+
+router.get('/drive', isAuth, async (req, res, next) => {
+  try {
+    const user = req.user;
+    const uploads = await getUserUploads(user.id);
+    console.log(uploads);
+    res.render('drive', { user: user, uploads: uploads });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/delete-folder/:id', isAuth, async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    await deleteFolder(id);
+    res.redirect('/drive');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/create-folder', isAuth, createFolderPost);
 
 module.exports = router;

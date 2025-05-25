@@ -133,6 +133,23 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password'
 };
 
+exports.Prisma.FolderScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  userId: 'userId'
+};
+
+exports.Prisma.FileScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  link: 'link',
+  folderId: 'folderId',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  size: 'size'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -143,10 +160,17 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
   Session: 'Session',
-  User: 'User'
+  User: 'User',
+  Folder: 'Folder',
+  File: 'File'
 };
 
 /**
