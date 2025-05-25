@@ -9,4 +9,16 @@ async function getFiles(userId) {
   return files;
 }
 
-module.exports = { getFiles };
+async function uploadFile(userId, name, link, folderId, size) {
+  await prisma.file.create({
+    data: {
+      name: name,
+      link: link,
+      folderId: folderId,
+      userId: userId,
+      size: size,
+    },
+  });
+}
+
+module.exports = { getFiles, uploadFile };

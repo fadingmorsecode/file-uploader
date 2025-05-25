@@ -7,6 +7,7 @@ const {
   createFolderPost,
   deleteFolder,
 } = require('../controllers/folderController');
+const { uploadFile } = require('../controllers/fileController');
 
 const router = Router();
 
@@ -52,16 +53,20 @@ router.get('/upload', isAuth, (req, res, next) => {
 });
 
 router.post('/upload', isAuth, async (req, res, next) => {
-  const { filename } = req.body;
-  console.log('upload:', filename);
-  res.redirect('upload');
+  try {
+    const user = req.user;
+    const filename = req.body.filename;
+    await uploadFile(user.id, filename, 'placeholder link', null, 0);
+    res.redirect('/drive');
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.get('/drive', isAuth, async (req, res, next) => {
   try {
     const user = req.user;
     const uploads = await getUserUploads(user.id);
-    console.log(uploads);
     res.render('drive', { user: user, uploads: uploads });
   } catch (err) {
     next(err);

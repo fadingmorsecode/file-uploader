@@ -12,6 +12,9 @@
     <p>Folders:</p>
     <% uploads.folders.forEach((folder) => { %>
     <p><%= folder.name %></p>
+    <form action="/edit-folder/<%= folder.id %>" method="get">
+      <button type="submit">Edit</button>
+    </form>
     <form action="/delete-folder/<%= folder.id %>" method="post">
       <button type="submit">Delete</button>
     </form>
