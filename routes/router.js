@@ -48,15 +48,27 @@ router.get('/logout', (req, res, next) => {
   });
 });
 
-router.get('/upload', isAuth, (req, res, next) => {
-  res.render('upload');
+router.get('/upload', isAuth, async (req, res, next) => {
+  try {
+    const { folders } = await getUserUploads();
+    res.render('upload', { folders: folders });
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.post('/upload', isAuth, async (req, res, next) => {
   try {
     const user = req.user;
     const filename = req.body.filename;
-    await uploadFile(user.id, filename, 'placeholder link', null, 0);
+    let folderId = req.body.folderId;
+    await uploadFile(
+      user.id,
+      filename,
+      'placeholder link',
+      folderId || null,
+      0
+    );
     res.redirect('/drive');
   } catch (err) {
     next(err);
