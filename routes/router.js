@@ -9,7 +9,12 @@ const {
   editFolderPost,
   editFolderGet,
 } = require('../controllers/folderController');
-const { uploadFile, deleteFilePost } = require('../controllers/fileController');
+const {
+  uploadFile,
+  deleteFilePost,
+  viewFileDetailsGet,
+  fileDownloadPost,
+} = require('../controllers/fileController');
 
 const router = Router();
 
@@ -104,5 +109,9 @@ router.post('/edit-folder/:id', isAuth, editFolderPost);
 router.post('/create-folder', isAuth, createFolderPost);
 
 router.post('/delete-file/:id', isAuth, deleteFilePost);
+
+router.get('/file/:id', isAuth, viewFileDetailsGet);
+
+router.post('/download/:id', isAuth, fileDownloadPost);
 
 module.exports = router;

@@ -23,6 +23,12 @@
     <p>Files:</p>
     <% uploads.files.forEach((file) => { %>
     <p><%= file.name %></p>
+    <form action="/file/<%=file.id%>" method="get">
+      <button type="submit">View Details</button>
+    </form>
+    <form action="/download/<%= file.id %>" method="post">
+      <button type="submit">Download</button>
+    </form>
     <form action="/delete-file/<%=file.id%>" method="post">
       <button type="submit">Delete</button>
     </form>
