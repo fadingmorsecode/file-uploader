@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Folder</title>
+</head>
+
+<body>
+  <h1>Folder</h1>
+  <form action='/edit-folder/<%= folder.id %>' method='post'>
+    <label for='folder-edit-name-input'>Change Folder Name</label>
+    <input type='text' id='folder-edit-name-input' value='<%= folder.name %>' name='folder-name'></input>
+    <button type='submit'>Edit</button>
+  </form>
+</body>
+
+</html>

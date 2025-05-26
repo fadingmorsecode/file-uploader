@@ -34,4 +34,58 @@ async function deleteFolder(folderId) {
   });
 }
 
-module.exports = { createFolderPost, getFolders, deleteFolder };
+async function getFolder(folderId) {
+  const folder = await prisma.folder.findUnique({
+    where: {
+      id: folderId,
+    },
+  });
+  return folder;
+}
+
+async function getFolderContents(folderId) {
+  const files = await prisma.file.findMany({
+    where: {
+      folderId: folderId,
+    },
+  });
+  return files;
+}
+
+editFolderGet = async (req, res, next) => {
+  try {
+    const folderId = req.params.id;
+    const folder = await getFolder(folderId);
+    const files = await getFolderContents(folderId);
+    const folders = await getFolders(req.user.id);
+    console.log(folder);
+    console.log(files);
+    res.render('editFolder', {
+      folder: folder,
+      files: files,
+      folders: folders,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+editFolderPost = async (req, res, next) => {
+  try {
+    const name = req.body['folder-name'];
+    const { id } = req.params;
+    await prisma.folder.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: name,
+      },
+    });
+    res.redirect('/drive');
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { createFolderPost, getFolders, deleteFolder, editFolderPost };

@@ -6,6 +6,7 @@ const getUserUploads = require('../controllers/driveController');
 const {
   createFolderPost,
   deleteFolder,
+  editFolderPost,
 } = require('../controllers/folderController');
 const { uploadFile } = require('../controllers/fileController');
 
@@ -94,6 +95,10 @@ router.post('/delete-folder/:id', isAuth, async (req, res, next) => {
     next(err);
   }
 });
+
+router.get('/edit-folder/:id', isAuth, editFolderGet);
+
+router.post('/edit-folder/:id', isAuth, editFolderPost);
 
 router.post('/create-folder', isAuth, createFolderPost);
 

@@ -9,7 +9,7 @@
     <form action="/upload" method="post">
       <p>Upload a File</p>
       <label for="folder-select-input">Select a Folder</label>
-      <<select name="folderId" id="folder">
+      <select name="folderId" id="folder">
         <option value="">-- No folder --</option>
         <% folders.forEach(folder => { %>
         <option value="<%= folder.id %>"><%= folder.name %></option>
