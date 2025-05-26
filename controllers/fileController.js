@@ -21,4 +21,18 @@ async function uploadFile(userId, name, link, folderId, size) {
   });
 }
 
-module.exports = { getFiles, uploadFile };
+deleteFilePost = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await prisma.file.delete({
+      where: {
+        id: id,
+      },
+    });
+    res.redirect('/drive');
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { getFiles, uploadFile, deleteFilePost };

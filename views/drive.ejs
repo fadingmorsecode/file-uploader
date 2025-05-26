@@ -23,6 +23,9 @@
     <p>Files:</p>
     <% uploads.files.forEach((file) => { %>
     <p><%= file.name %></p>
+    <form action="/delete-file/<%=file.id%>" method="post">
+      <button type="submit">Delete</button>
+    </form>
     <% }) %>
 
     <form action="create-folder" method="post">

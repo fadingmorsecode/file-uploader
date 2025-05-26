@@ -7,8 +7,9 @@ const {
   createFolderPost,
   deleteFolder,
   editFolderPost,
+  editFolderGet,
 } = require('../controllers/folderController');
-const { uploadFile } = require('../controllers/fileController');
+const { uploadFile, deleteFilePost } = require('../controllers/fileController');
 
 const router = Router();
 
@@ -101,5 +102,7 @@ router.get('/edit-folder/:id', isAuth, editFolderGet);
 router.post('/edit-folder/:id', isAuth, editFolderPost);
 
 router.post('/create-folder', isAuth, createFolderPost);
+
+router.post('/delete-file/:id', isAuth, deleteFilePost);
 
 module.exports = router;

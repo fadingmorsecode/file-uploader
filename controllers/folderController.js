@@ -88,4 +88,10 @@ editFolderPost = async (req, res, next) => {
   }
 };
 
-module.exports = { createFolderPost, getFolders, deleteFolder, editFolderPost };
+module.exports = {
+  createFolderPost,
+  getFolders,
+  deleteFolder,
+  editFolderPost,
+  editFolderGet,
+};
