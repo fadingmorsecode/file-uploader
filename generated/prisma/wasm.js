@@ -147,7 +147,8 @@ exports.Prisma.FileScalarFieldEnum = {
   folderId: 'folderId',
   createdAt: 'createdAt',
   userId: 'userId',
-  size: 'size'
+  size: 'size',
+  publicId: 'publicId'
 };
 
 exports.Prisma.SortOrder = {

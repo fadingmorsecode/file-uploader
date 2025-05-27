@@ -1,4 +1,5 @@
 const prisma = require('../prisma');
+const { cloudinaryDelete } = require('./fileController');
 
 createFolderPost = async (req, res, next) => {
   try {
@@ -27,6 +28,14 @@ async function getFolders(userId) {
 }
 
 async function deleteFolder(folderId) {
+  const filesToDelete = await prisma.file.findMany({
+    where: {
+      folderId: folderId,
+    },
+  });
+  filesToDelete.forEach((file) => {
+    cloudinaryDelete(file.publicId);
+  });
   await prisma.folder.delete({
     where: {
       id: folderId,

@@ -6,7 +6,7 @@
     <title>Upload Files</title>
   </head>
   <body>
-    <form action="/upload" method="post">
+    <form action="/upload" method="post" enctype="multipart/form-data">
       <p>Upload a File</p>
       <label for="folder-select-input">Select a Folder</label>
       <select name="folderId" id="folder">
@@ -18,5 +18,6 @@
       <input type="file" id="fileinput" name="filename" />
       <input type="submit" />
     </form>
+    <a href="/drive">Go Back</a>
   </body>
 </html>

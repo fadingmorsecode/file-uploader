@@ -3,6 +3,8 @@ const prisma = require('../prisma');
 const bcrypt = require('bcryptjs');
 const { isAuth } = require('./authMiddleware');
 const getUserUploads = require('../controllers/driveController');
+const path = require('path');
+const streamifier = require('streamifier');
 const {
   createFolderPost,
   deleteFolder,
@@ -15,6 +17,8 @@ const {
   viewFileDetailsGet,
   fileDownloadPost,
 } = require('../controllers/fileController');
+const cloudinary = require('../utils/cloudinaryConfig');
+const upload = require('../utils/multer');
 
 const router = Router();
 
@@ -64,23 +68,47 @@ router.get('/upload', isAuth, async (req, res, next) => {
   }
 });
 
-router.post('/upload', isAuth, async (req, res, next) => {
-  try {
-    const user = req.user;
-    const filename = req.body.filename;
-    let folderId = req.body.folderId;
-    await uploadFile(
-      user.id,
-      filename,
-      'placeholder link',
-      folderId || null,
-      0
-    );
-    res.redirect('/drive');
-  } catch (err) {
-    next(err);
+router.post(
+  '/upload',
+  isAuth,
+  upload.single('filename'),
+  async (req, res, next) => {
+    console.log(req.file);
+    try {
+      const stream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: 'auto',
+          public_id: path.parse(req.file.originalname).name,
+        },
+        async (error, result) => {
+          if (error) {
+            return next(error);
+          }
+          console.log(result);
+          const user = req.user;
+          const filename = req.file.originalname;
+          const link = result.secure_url;
+          const sizeMB = parseFloat((result.bytes / (1024 * 1024)).toFixed(2));
+          console.log(sizeMB);
+          let folderId = req.body.folderId;
+          await uploadFile(
+            user.id,
+            filename,
+            link,
+            folderId || null,
+            sizeMB,
+            result.public_id
+          );
+          res.redirect('/drive');
+        }
+      );
+
+      streamifier.createReadStream(req.file.buffer).pipe(stream);
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 router.get('/drive', isAuth, async (req, res, next) => {
   try {

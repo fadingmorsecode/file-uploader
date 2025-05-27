@@ -6,21 +6,42 @@
     <title>Drive</title>
   </head>
   <body>
-    <p>Drive</p>
-    <p>User: <%= JSON.stringify(user) %></p>
+    <h1>Your Drive</h1>
 
-    <p>Folders:</p>
+    <h2>Create a Folder</h2>
+    <form action="create-folder" method="post">
+      <label for="folder-name-input">Folder Name</label>
+      <input type="text" id="folder-name-input" name="name" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <a href="/upload">Upload a File</a>
+
+    <h2>Folders:</h2>
     <% uploads.folders.forEach((folder) => { %>
-    <p><%= folder.name %></p>
+    <h3><%= folder.name %></h3>
     <form action="/edit-folder/<%= folder.id %>" method="get">
       <button type="submit">Edit</button>
     </form>
     <form action="/delete-folder/<%= folder.id %>" method="post">
       <button type="submit">Delete</button>
     </form>
-    <% }) %>
 
-    <p>Files:</p>
+    <% uploads.files.forEach((file) => { %> <% if (file.folderId === folder.id)
+    { %>
+    <p><%= file.name %></p>
+    <form action="/file/<%=file.id%>" method="get">
+      <button type="submit">View Details</button>
+    </form>
+    <form action="/download/<%= file.id %>" method="post">
+      <button type="submit">Download</button>
+    </form>
+    <form action="/delete-file/<%=file.id%>" method="post">
+      <button type="submit">Delete</button>
+    </form>
+    <% } %> <% }) %> <% }) %>
+
+    <h2>All Files:</h2>
     <% uploads.files.forEach((file) => { %>
     <p><%= file.name %></p>
     <form action="/file/<%=file.id%>" method="get">
@@ -33,11 +54,5 @@
       <button type="submit">Delete</button>
     </form>
     <% }) %>
-
-    <form action="create-folder" method="post">
-      <label for="folder-name-input">Folder Name</label>
-      <input type="text" id="folder-name-input" name="name" />
-      <button type="submit">Submit</button>
-    </form>
   </body>
 </html>
