@@ -36,6 +36,7 @@ model Folder {
   createdAt DateTime @default(now())
   author    User     @relation(fields: [userId], references: [id])
   userId    String
+  shareId   String?
 }
 
 model File {

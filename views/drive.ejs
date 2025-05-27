@@ -23,6 +23,9 @@
     <form action="/edit-folder/<%= folder.id %>" method="get">
       <button type="submit">Edit</button>
     </form>
+    <form action="/share/<%= folder.id %>" method="get">
+      <button type="submit">Share</button>
+    </form>
     <form action="/delete-folder/<%= folder.id %>" method="post">
       <button type="submit">Delete</button>
     </form>

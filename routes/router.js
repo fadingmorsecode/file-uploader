@@ -5,6 +5,7 @@ const { isAuth } = require('./authMiddleware');
 const getUserUploads = require('../controllers/driveController');
 const path = require('path');
 const streamifier = require('streamifier');
+const { v4: uuidv4 } = require('uuid');
 const {
   createFolderPost,
   deleteFolder,
@@ -43,9 +44,14 @@ router.post('/signup', async (req, res, next) => {
         password: hashedPassword,
       },
     });
-    console.log(user);
     res.redirect('/');
   } catch (err) {
+    if (err.code === 'P2002' && err.meta?.target?.includes('username')) {
+      return res.status(400).json({
+        error:
+          'A user with that username already exists. Please choose a different username.',
+      });
+    }
     return next(err);
   }
 });
@@ -130,6 +136,44 @@ router.post('/delete-folder/:id', isAuth, async (req, res, next) => {
   }
 });
 
+router.get('/share/:id', isAuth, async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const generatedShareId = uuidv4();
+    const folder = await prisma.folder.findUnique({
+      where: { id: req.params.id },
+    });
+    const updated = await prisma.folder.update({
+      where: {
+        id: id,
+      },
+      data: {
+        shareId: folder.shareId || generatedShareId,
+      },
+    });
+    const shareLink = `${req.protocol}://${req.get('host')}/shared/folder/${
+      updated.shareId
+    }`;
+    res.render('shareLink', { folder: updated, shareLink: shareLink });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/shared/folder/:id', async (req, res, next) => {
+  const shareId = req.params.id;
+  const folder = await prisma.folder.findFirst({
+    where: {
+      shareId: shareId,
+    },
+    include: {
+      files: true,
+    },
+  });
+  console.log(folder);
+  res.render('sharedFolder', { folder: folder });
+});
+
 router.get('/edit-folder/:id', isAuth, editFolderGet);
 
 router.post('/edit-folder/:id', isAuth, editFolderPost);
@@ -138,8 +182,8 @@ router.post('/create-folder', isAuth, createFolderPost);
 
 router.post('/delete-file/:id', isAuth, deleteFilePost);
 
-router.get('/file/:id', isAuth, viewFileDetailsGet);
+router.get('/file/:id', viewFileDetailsGet);
 
-router.post('/download/:id', isAuth, fileDownloadPost);
+router.post('/download/:id', fileDownloadPost);
 
 module.exports = router;

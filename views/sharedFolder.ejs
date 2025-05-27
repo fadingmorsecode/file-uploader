@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shared Folder</title>
+  </head>
+  <body>
+    <h1><%= folder.name %></h1>
+    <% if (folder.files.length < 1) { %>
+    <h2>Whoops! This folder contains no files</h2>
+    <% } %> <% folder.files.forEach((file) => { %>
+    <p><%= file.name %></p>
+    <form action="/file/<%= file.id %>" method="get">
+      <button type="submit">View Details</button>
+    </form>
+    <form action="/download/<%= file.id %>" method="post">
+      <button type="submit">Download</button>
+    </form>
+    <% }) %>
+    <p>Need storage of your own?</p>
+    <a href="/">Log in or Register</a>
+  </body>
+</html>

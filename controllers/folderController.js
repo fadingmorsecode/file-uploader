@@ -9,7 +9,9 @@ createFolderPost = async (req, res, next) => {
     await prisma.folder.create({
       data: {
         name: name,
-        userId: userId,
+        author: {
+          connect: { id: userId },
+        },
       },
     });
     res.redirect('/drive');
@@ -19,7 +21,6 @@ createFolderPost = async (req, res, next) => {
 };
 
 async function getFolders(userId) {
-  console.log(userId);
   const folders = await prisma.folder.findMany({
     where: {
       userId: userId,

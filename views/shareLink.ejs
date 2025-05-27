@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Share Link</title>
+    <script>
+      const copyLink = () => {
+        const shareLink = document.getElementById('share-link').innerText;
+        navigator.clipboard.writeText(shareLink).then(() => {
+          alert('Share link copied');
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <h1><%= folder.name %> Share Link</h1>
+    <p id="share-link"><%= shareLink %></p>
+    <button onclick="copyLink()">Copy to Clipboard</button>
+    <a href="/drive">Back to Drive</a>
+  </body>
+</html>
