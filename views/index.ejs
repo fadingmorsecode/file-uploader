@@ -9,6 +9,7 @@
     <% if (locals.user) {%>
     <h1>WELCOME BACK <%= user.username %></h1>
     <a href="/logout">LOG OUT</a>
+    <a href="/drive">Go to Drive</a>
     <% } else { %> <% if (message.length > 0 ) { %>
     <p><%= message[0] %></p>
     <% } %>
@@ -20,6 +21,7 @@
       <input id="password" name="password" type="password" />
       <button type="submit">Log In</button>
     </form>
+    <a href="/signup">Registration</a>
     <%}%>
   </body>
 </html>

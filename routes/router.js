@@ -61,7 +61,7 @@ router.get('/logout', (req, res, next) => {
 
 router.get('/upload', isAuth, async (req, res, next) => {
   try {
-    const { folders } = await getUserUploads();
+    const { folders } = await getUserUploads(req.user.id);
     res.render('upload', { folders: folders });
   } catch (err) {
     next(err);
