@@ -8,7 +8,11 @@
   <body>
     <h1>File Details</h1>
     <p>File Name: <%= details.name %></p>
-    <p>Size: <%= details.size %></p>
+    <% if (details.size < 1) { %>
+    <p>Size: Less than 1 MB</p>
+    <% } else { %>
+    <p>Size: <%= details.size %> MB</p>
+    <% } %>
     <P>Upload Time: <%= details.createdAt %></P>
 
     <form action="/download/<%= details.id %>" method="post">
