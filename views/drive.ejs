@@ -18,7 +18,9 @@
     <a href="/upload">Upload a File</a>
 
     <h2>Folders:</h2>
-    <% uploads.folders.forEach((folder) => { %>
+    <% if (uploads.folders.length < 1) { %>
+    <p>No folders to display</p>
+    <% } %> <% uploads.folders.forEach((folder) => { %>
     <h3><%= folder.name %></h3>
     <form action="/edit-folder/<%= folder.id %>" method="get">
       <button type="submit">Edit</button>
@@ -45,7 +47,9 @@
     <% } %> <% }) %> <% }) %>
 
     <h2>All Files:</h2>
-    <% uploads.files.forEach((file) => { %>
+    <% if (uploads.files.length < 1) { %>
+    <p>No files to display</p>
+    <% } %> <% uploads.files.forEach((file) => { %>
     <p><%= file.name %></p>
     <form action="/file/<%=file.id%>" method="get">
       <button type="submit">View Details</button>
