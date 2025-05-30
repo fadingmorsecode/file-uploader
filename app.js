@@ -15,6 +15,8 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(express.static('public'));
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -46,7 +48,6 @@ passport.use(
           username: username,
         },
       });
-      console.log(user);
       if (!user) {
         return done(null, false, { message: 'Incorrect username' });
       }

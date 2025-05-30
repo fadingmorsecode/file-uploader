@@ -1,0 +1,16 @@
+<header>
+  <div class="logo-group">
+    <img src="/logo.svg" id="logo-img" />
+    <h1 id="logo-text">TrickSync</h1>
+  </div>
+  <nav>
+    <a href="/">Home</a>
+    <% if (!user) { %>
+    <a href="/signup">Register</a>
+    <% } %> <% if (user) { %>
+    <a href="/drive">Drive</a>
+    <a href="/upload">File Upload</a>
+    <a href="/logout">Logout</a>
+    <% } %>
+  </nav>
+</header>

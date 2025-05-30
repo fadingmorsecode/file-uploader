@@ -4,16 +4,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/styles.css" rel="stylesheet" />
   <title>Edit Folder</title>
 </head>
 
 <body>
-  <h1>Folder</h1>
-  <form action='/edit-folder/<%= folder.id %>' method='post'>
-    <label for='folder-edit-name-input'>Change Folder Name</label>
+  <%- include('header', {user: user}); %>
+  <main>
+  <h1 class='h1-heading'>Edit Folder Name</h1>
+  <form id='edit-folder-form' action='/edit-folder/<%= folder.id %>' method='post'>
+    <label for='folder-edit-name-input'>Edit Folder Name</label>
     <input type='text' id='folder-edit-name-input' value='<%= folder.name %>' name='folder-name'></input>
     <button type='submit'>Edit</button>
+    <a id='cancel-edit-link' href='/drive'>Cancel</a>
   </form>
+  </main>
+  <%- include('footer'); %>
 </body>
 
 </html>

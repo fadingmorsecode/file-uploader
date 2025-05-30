@@ -23,15 +23,20 @@ const upload = require('../utils/multer');
 
 const router = Router();
 
-router.get('/', (req, res) =>
+router.get('/', async (req, res) => {
+  let uploads;
+  if (req.user) {
+    uploads = await getUserUploads(req.user.id);
+  }
   res.render('index', {
     message: req.flash('error'),
     user: req.user,
-  })
-);
+    uploads: uploads,
+  });
+});
 
 router.get('/signup', (req, res) => {
-  res.render('signup');
+  res.render('signup', { user: req.user });
 });
 
 router.post('/signup', async (req, res, next) => {
@@ -68,7 +73,7 @@ router.get('/logout', (req, res, next) => {
 router.get('/upload', isAuth, async (req, res, next) => {
   try {
     const { folders } = await getUserUploads(req.user.id);
-    res.render('upload', { folders: folders });
+    res.render('upload', { folders: folders, user: req.user });
   } catch (err) {
     next(err);
   }
@@ -154,7 +159,11 @@ router.get('/share/:id', isAuth, async (req, res, next) => {
     const shareLink = `${req.protocol}://${req.get('host')}/shared/folder/${
       updated.shareId
     }`;
-    res.render('shareLink', { folder: updated, shareLink: shareLink });
+    res.render('shareLink', {
+      folder: updated,
+      shareLink: shareLink,
+      user: req.user,
+    });
   } catch (err) {
     next(err);
   }
@@ -171,7 +180,7 @@ router.get('/shared/folder/:id', async (req, res, next) => {
     },
   });
   console.log(folder);
-  res.render('sharedFolder', { folder: folder });
+  res.render('sharedFolder', { folder: folder, user: req.user });
 });
 
 router.get('/edit-folder/:id', isAuth, editFolderGet);

@@ -3,21 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/styles.css" rel="stylesheet" />
     <title>Upload Files</title>
   </head>
   <body>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <p>Upload a File</p>
-      <label for="folder-select-input">Select a Folder</label>
-      <select name="folderId" id="folder">
-        <option value="">-- No folder --</option>
-        <% folders.forEach(folder => { %>
-        <option value="<%= folder.id %>"><%= folder.name %></option>
-        <% }); %>
-      </select>
-      <input type="file" id="fileinput" name="filename" />
-      <input type="submit" />
-    </form>
-    <a href="/drive">Go Back</a>
+    <%- include('header', {user: user}); %>
+    <main>
+      <h1 class="h1-heading">Upload a File</h1>
+      <form
+        id="upload-form"
+        action="/upload"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <label for="folder-select-input">Select a Folder</label>
+        <select name="folderId" id="folder">
+          <option value="">-- No folder --</option>
+          <% folders.forEach(folder => { %>
+          <option value="<%= folder.id %>"><%= folder.name %></option>
+          <% }); %>
+        </select>
+        <input type="file" id="fileinput" name="filename" />
+        <button type="submit">Submit</button>
+      </form>
+    </main>
+    <%- include('footer'); %>
   </body>
 </html>

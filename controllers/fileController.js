@@ -63,7 +63,7 @@ viewFileDetailsGet = async (req, res, next) => {
         id: id,
       },
     });
-    res.render('fileDetails', { details: fileDetails });
+    res.render('fileDetails', { details: fileDetails, user: req.user });
   } catch (err) {
     next(err);
   }
@@ -78,7 +78,6 @@ fileDownloadPost = async (req, res, next) => {
       },
     });
     const downloadLink = file.link;
-    console.log(downloadLink);
     res.redirect(downloadLink);
     res.redirect('/drive');
   } catch (err) {

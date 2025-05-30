@@ -3,64 +3,88 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/styles.css" rel="stylesheet" />
     <title>Drive</title>
   </head>
   <body>
-    <h1>Your Drive</h1>
+    <%- include('header', {user: user}); %>
+    <main>
+      <h1 class="h1-heading">Create a Folder</h1>
+      <form id="create-folder-form" action="create-folder" method="post">
+        <label for="folder-name-input">Folder Name</label>
+        <input type="text" id="folder-name-input" name="name" />
+        <button type="submit">Submit</button>
+      </form>
 
-    <h2>Create a Folder</h2>
-    <form action="create-folder" method="post">
-      <label for="folder-name-input">Folder Name</label>
-      <input type="text" id="folder-name-input" name="name" />
-      <button type="submit">Submit</button>
-    </form>
+      <h2 class="h2-heading">Folders:</h2>
+      <% if (uploads.folders.length < 1) { %>
+      <p class="no-display">No folders to display</p>
+      <% } %> <% uploads.folders.forEach((folder) => { %>
+      <div class="folder">
+        <h3><%= folder.name %></h3>
+        <div class="folder-btns">
+          <form action="/edit-folder/<%= folder.id %>" method="get">
+            <button type="submit">Edit</button>
+          </form>
+          <form action="/share/<%= folder.id %>" method="get">
+            <button type="submit">Share</button>
+          </form>
+          <form action="/delete-folder/<%= folder.id %>" method="post">
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
 
-    <a href="/upload">Upload a File</a>
+      <% uploads.files.forEach((file) => { %> <% if (file.folderId ===
+      folder.id) { %>
+      <div class="file">
+        <p class="file-name"><%= file.name %></p>
+        <div class="file-btns">
+          <form action="/file/<%=file.id%>" method="get">
+            <button type="submit">
+              <img class="file-btn-img" src="/info.svg" />
+            </button>
+          </form>
+          <form action="/download/<%= file.id %>" method="post">
+            <button type="submit">
+              <img class="file-btn-img" src="/download.svg" />
+            </button>
+          </form>
+          <form action="/delete-file/<%=file.id%>" method="post">
+            <button type="submit">
+              <img class="file-btn-img" src="/delete.svg" />
+            </button>
+          </form>
+        </div>
+      </div>
+      <% } %> <% }) %> <% }) %>
 
-    <h2>Folders:</h2>
-    <% if (uploads.folders.length < 1) { %>
-    <p>No folders to display</p>
-    <% } %> <% uploads.folders.forEach((folder) => { %>
-    <h3><%= folder.name %></h3>
-    <form action="/edit-folder/<%= folder.id %>" method="get">
-      <button type="submit">Edit</button>
-    </form>
-    <form action="/share/<%= folder.id %>" method="get">
-      <button type="submit">Share</button>
-    </form>
-    <form action="/delete-folder/<%= folder.id %>" method="post">
-      <button type="submit">Delete</button>
-    </form>
-
-    <% uploads.files.forEach((file) => { %> <% if (file.folderId === folder.id)
-    { %>
-    <p><%= file.name %></p>
-    <form action="/file/<%=file.id%>" method="get">
-      <button type="submit">View Details</button>
-    </form>
-    <form action="/download/<%= file.id %>" method="post">
-      <button type="submit">Download</button>
-    </form>
-    <form action="/delete-file/<%=file.id%>" method="post">
-      <button type="submit">Delete</button>
-    </form>
-    <% } %> <% }) %> <% }) %>
-
-    <h2>All Files:</h2>
-    <% if (uploads.files.length < 1) { %>
-    <p>No files to display</p>
-    <% } %> <% uploads.files.forEach((file) => { %>
-    <p><%= file.name %></p>
-    <form action="/file/<%=file.id%>" method="get">
-      <button type="submit">View Details</button>
-    </form>
-    <form action="/download/<%= file.id %>" method="post">
-      <button type="submit">Download</button>
-    </form>
-    <form action="/delete-file/<%=file.id%>" method="post">
-      <button type="submit">Delete</button>
-    </form>
-    <% }) %>
-    <a href="/">Go to Home</a>
+      <h2 class="h2-heading">All Files:</h2>
+      <% if (uploads.files.length < 1) { %>
+      <p class="no-display">No files to display</p>
+      <% } %> <% uploads.files.forEach((file) => { %>
+      <div class="file">
+        <p class="file-name"><%= file.name %></p>
+        <div class="file-btns">
+          <form action="/file/<%=file.id%>" method="get">
+            <button type="submit">
+              <img class="file-btn-img" src="/info.svg" />
+            </button>
+          </form>
+          <form action="/download/<%= file.id %>" method="post">
+            <button type="submit">
+              <img class="file-btn-img" src="/download.svg" />
+            </button>
+          </form>
+          <form action="/delete-file/<%=file.id%>" method="post">
+            <button type="submit">
+              <img class="file-btn-img" src="/delete.svg" />
+            </button>
+          </form>
+        </div>
+      </div>
+      <% }) %>
+    </main>
   </body>
+  <%- include('footer'); %>
 </html>

@@ -69,12 +69,11 @@ editFolderGet = async (req, res, next) => {
     const folder = await getFolder(folderId);
     const files = await getFolderContents(folderId);
     const folders = await getFolders(req.user.id);
-    console.log(folder);
-    console.log(files);
     res.render('editFolder', {
       folder: folder,
       files: files,
       folders: folders,
+      user: req.user,
     });
   } catch (err) {
     next(err);

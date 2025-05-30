@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/styles.css" rel="stylesheet" />
     <title>Share Link</title>
     <script>
       const copyLink = () => {
@@ -14,9 +15,12 @@
     </script>
   </head>
   <body>
-    <h1><%= folder.name %> Share Link</h1>
-    <p id="share-link"><%= shareLink %></p>
-    <button onclick="copyLink()">Copy to Clipboard</button>
-    <a href="/drive">Back to Drive</a>
+    <%- include('header', {user: user}); %>
+    <main>
+      <h1 class="h1-heading"><%= folder.name %> Share Link</h1>
+      <p id="share-link"><%= shareLink %></p>
+      <button id="copy-btn" onclick="copyLink()">Copy to Clipboard</button>
+    </main>
+    <%- include('footer'); %>
   </body>
 </html>

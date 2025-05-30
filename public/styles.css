@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
+
+:root {
+  --font: 'Bebas Neue', sans-serif;
+  --pfont: 'Fira Sans', sans-serif;
+}
+
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* Begin Header Styles */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 10px, 0, 10px, 0;
+  margin-bottom: 10px;
+}
+
+.logo-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo-img {
+  width: 80px;
+}
+
+#logo-text {
+  font-family: var(--font);
+  font-size: 2.5rem;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  background-color: #ffd046;
+}
+
+nav > a {
+  text-decoration: none;
+  color: black;
+  font-family: var(--font);
+  font-size: 1.6rem;
+}
+
+main {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#drive-link {
+  text-decoration: none;
+  border: solid 2px #ffb7ff;
+  padding: 5px;
+  font-family: var(--pfont);
+  background-color: #c879ff;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.h1-heading {
+  font-family: var(--font);
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.index-info {
+  font-family: var(--pfont);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+#index-bio {
+  font-family: var(--pfont);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  max-width: 250px;
+  text-align: center;
+  color: black;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5px;
+  background-color: #ffb7ff;
+  color: black;
+  box-shadow: 1px -4px 24px 2px rgba(200, 121, 255, 0.75);
+  -webkit-box-shadow: 1px -4px 24px 2px rgba(200, 121, 255, 0.75);
+  -moz-box-shadow: 1px -4px 24px 2px rgba(200, 121, 255, 0.75);
+  font-family: var(--pfont);
+  font-size: 1rem;
+  text-align: center;
+  gap: 5px;
+}
+
+footer a {
+  color: black;
+}
+
+#login-form,
+#signup-form,
+#upload-form,
+#create-folder-form,
+#edit-folder-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+}
+
+#login-form label,
+#signup-form label,
+#upload-form label,
+#create-folder-form label,
+#edit-folder-form label {
+  font-family: var(--pfont);
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+#login-form input,
+#signup-form input,
+#create-folder-form input,
+#edit-folder-form input {
+  margin-bottom: 10px;
+  border: solid 2px #826aed;
+  border-radius: 5px;
+  font-family: var(--pfont);
+}
+
+#upload-form select {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: solid 1px black;
+  font-family: var(--pfont);
+}
+
+#upload-form input {
+  font-family: var(--pfont);
+  margin-bottom: 10px;
+}
+
+#login-form button,
+#signup-form button,
+#upload-form button,
+#create-folder-form button,
+#download-btn,
+#edit-folder-form button,
+#copy-btn,
+#details-btn,
+#cancel-edit-link {
+  font-family: var(--pfont);
+  font-size: 1.2rem;
+  background-color: #826aed;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  min-width: 80px;
+  align-self: center;
+  margin-top: 5px;
+}
+
+#decorative-photo {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  max-width: 250px;
+  border-radius: 5px;
+}
+
+#create-folder-form {
+  margin-bottom: 15px;
+}
+
+.folder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-bottom: 5px black solid;
+  border-radius: 5px;
+}
+
+.folder-btns,
+.file-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.folder-btns button {
+  font-family: var(--pfont);
+  font-size: 1rem;
+  background-color: #ffd046;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  min-width: 80px;
+  align-self: center;
+  margin-top: 5px;
+}
+
+.folder-btns button {
+  background-color: #826aed;
+}
+
+.h2-heading {
+  font-family: var(--font);
+  font-size: 2.1rem;
+}
+
+.file {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  border: solid 3px;
+  padding: 10px;
+  width: 250px;
+  height: 175px;
+}
+
+.file-preview {
+  width: 50px;
+}
+
+.file-name {
+  font-family: var(--pfont);
+  text-align: center;
+}
+
+.file-btn-img {
+  width: 20px;
+  border: none;
+}
+
+.file-btns button {
+  margin-top: 10px;
+  border: none;
+  background-color: white;
+}
+
+.file-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.file-details p {
+  font-family: var(--pfont);
+  text-align: center;
+}
+
+#share-link,
+#cancel-edit-link {
+  font-family: var(--pfont);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#cancel-edit-link {
+  text-decoration: none;
+}
+
+.promo-div {
+  margin-top: 50px;
+  font-family: var(--pfont);
+  text-align: center;
+}
+
+.promo-div a {
+  color: black;
+}
+
+h3 {
+  font-family: var(--pfont);
+  font-size: 1.5rem;
+}
+
+.no-display {
+  font-family: var(--pfont);
+}

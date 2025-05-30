@@ -4,24 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
+    <link href="/styles.css" rel="stylesheet" />
   </head>
-  <body>
-    <% if (locals.user) {%>
-    <h1>WELCOME BACK <%= user.username %></h1>
-    <a href="/logout">LOG OUT</a>
-    <a href="/drive">Go to Drive</a>
-    <% } else { %> <% if (message.length > 0 ) { %>
-    <p><%= message[0] %></p>
-    <% } %>
-    <h1>Please log in</h1>
-    <form action="/login" method="POST">
-      <label for="username">Username</label>
-      <input id="username" name="username" placeholder="username" type="text" />
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" />
-      <button type="submit">Log In</button>
-    </form>
-    <a href="/signup">Registration</a>
-    <%}%>
+  <body id="index-body">
+    <%- include('header', {user: user}); %>
+    <main>
+      <% if (locals.user) {%>
+      <h1 class="h1-heading">Hello, <%= user.username %>!</h1>
+      <p class="index-info">
+        You have <%= uploads.files.length %> <%= uploads.files.length === 1 ?
+        'file' : 'files' %> and <%= uploads.folders.length %> <%=
+        uploads.folders.length === 1 ? 'folder' : 'folders' %>
+      </p>
+      <a href="/drive" id="drive-link">Go to Drive</a>
+      <% } else { %> <% if (message.length > 0 ) { %>
+      <p><%= message[0] %></p>
+      <% } %>
+      <p id="index-bio">
+        🎭 TrickSync juggles your files with flair—toss them in, and we’ll make
+        them disappear (and reappear exactly where you need them).
+      </p>
+      <h1 class="h1-heading">Log In</h1>
+      <form id="login-form" action="/login" method="POST">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" />
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" />
+        <button type="submit">Log In</button>
+      </form>
+      <%}%>
+      <img id="decorative-photo" src="/decorative-photo.jpg" />
+    </main>
+    <%- include('footer'); %>
   </body>
 </html>

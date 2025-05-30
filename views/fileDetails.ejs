@@ -3,20 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/styles.css" rel="stylesheet" />
     <title>File Details</title>
   </head>
   <body>
-    <h1>File Details</h1>
-    <p>File Name: <%= details.name %></p>
-    <% if (details.size < 1) { %>
-    <p>Size: Less than 1 MB</p>
-    <% } else { %>
-    <p>Size: <%= details.size %> MB</p>
-    <% } %>
-    <P>Upload Time: <%= details.createdAt %></P>
+    <%- include('header', {user: user}); %>
+    <main>
+      <h1 class="h1-heading">File Details</h1>
+      <div class="file-details">
+        <p><b>File Name: </b> <%= details.name %></p>
+        <% if (details.size < 1) { %>
+        <p><b>Size: </b> Less than 1 MB</p>
+        <% } else { %>
+        <p>Size: <%= details.size %> MB</p>
+        <% } %>
+        <p><b>Upload Time: </b><%= details.createdAt %></p>
+      </div>
 
-    <form action="/download/<%= details.id %>" method="post">
-      <button type="submit">Download</button>
-    </form>
+      <form action="/download/<%= details.id %>" method="post">
+        <button type="submit" id="download-btn">Download</button>
+      </form>
+    </main>
+    <%- include('footer'); %>
   </body>
 </html>
